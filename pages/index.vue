@@ -1,7 +1,6 @@
-import { Title } from '../.nuxt/components';
 <script lang="ts" setup>
 useHead({
-  title: "home",
+  title: "Bazar Online",
   meta: [
     {
       hid: "page-index",
@@ -14,4 +13,8 @@ definePageMeta({
   layout: "default",
 });
 </script>
-<template><div>Hello</div></template>
+<template>
+  <div class="flex items-center h-screen justify-center">
+    <Hero />
+  </div>
+</template>

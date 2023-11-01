@@ -14,7 +14,7 @@ const { isOutside } = useMouseInElement(target);
 
 const handleSubmit = () => {
   if (searchQuery.value.length > 0) {
-    router.push({ path: "/about", query: { product: searchQuery.value } });
+    router.push({ path: "/items", query: { product: searchQuery.value } });
   }
 };
 
@@ -32,7 +32,12 @@ onMounted(() => {
     <div v-if="!show" class="spacer h-52"></div>
     <Transition name="nested">
       <div v-if="show" class="outer mb-2 mr-2 flex justify-center">
-        <nuxt-img src="/img/logo.webp" height="200" width="200" />
+        <nuxt-img
+          alt="Bazar logo"
+          src="/img/logo.webp"
+          height="200"
+          width="200"
+        />
       </div>
     </Transition>
     <div v-if="!show" class="spacer h-3 mb-10"></div>

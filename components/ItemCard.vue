@@ -11,29 +11,25 @@ const props = defineProps({
     type: Array as PropType<ProductData[]>,
     required: true,
   },
-  loading: Boolean,
+});
+onBeforeMount(() => {
+  props.items;
 });
 </script>
 <template>
-  <div
-    class="grid md:grid-cols-2 lg:grid-cols-3 mx-2 md:mx-6 lg:mx-16 gap-3 md:gap-4"
-  >
+  <!-- Current card -->
+  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
     <div
       v-for="item in props.items"
       class="container bg-gray-700 bg-opacity-50 p-4 rounded min-w-full"
     >
       <div :class="md ? 'flex items-center' : ''">
         <div class="md:flex md:justify-center">
-          <div
-            v-if="loading"
-            class="rounded-full h-28 w-28 animate-pulse bg-gray-600"
-          ></div>
           <NuxtImg
-            v-else
             :src="item.thumbnail"
             width="100"
             height="100"
-            class="rounded-full h-20 w-20 md:h-28 md:w-28"
+            class="rounded-full h-28 w-28"
           />
         </div>
         <div class="pl-6 md:pl-0 md:mt-4 w-full">

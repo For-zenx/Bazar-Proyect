@@ -18,7 +18,7 @@ const handleSubmit = () => {
   }
 };
 
-function onMousemove(e) {
+function onMousemove(e: MouseEvent) {
   x.value = e.clientX;
 }
 

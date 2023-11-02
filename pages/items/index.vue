@@ -6,11 +6,11 @@ const productKeyword = route.query.product
   ? `${route.query.product}`.toLowerCase()
   : "";
 
-const { data: products, pending } = await useLazyAsyncData("products", () =>
+const { data: products } = await useAsyncData("products", () =>
   $fetch("/api/product")
 );
 
-let filteredProducts: ProductData[];
+let filteredProducts: ProductData[] = [];
 
 if (products.value) {
   filteredProducts = products.value.products.filter((product) => {
@@ -24,10 +24,8 @@ if (products.value) {
 }
 </script>
 <template>
-  <div>
-    <div v-if="productKeyword.length === 0 || filteredProducts.length === 0">
-      No se encontraron coincidencias
-    </div>
-    <ItemCard v-else :loading="pending" :items="filteredProducts" />
+  <div class="px-2 md:px-6 lg:px-16">
+    <ItemCategory :items="filteredProducts" />
+    <ItemCard :items="filteredProducts" />
   </div>
 </template>

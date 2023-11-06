@@ -1,35 +1,46 @@
 <script setup lang="ts">
 import { ProductData } from "../types/index";
-import { breakpointsTailwind } from "@vueuse/core";
-import { useBreakpoints } from "@vueuse/core";
+import { useBreakpoints, breakpointsTailwind, useImage } from "@vueuse/core";
 const breakpoints = useBreakpoints(breakpointsTailwind);
 
 const md = breakpoints.smallerOrEqual("md");
-
+const router = useRouter();
 const props = defineProps({
   items: {
     type: Array as PropType<ProductData[]>,
     required: true,
   },
 });
-onBeforeMount(() => {
-  props.items;
-});
+
+const imageLoadingStates = ref<Record<string, ReturnType<typeof useImage>>>({});
+
+const getImageLoadingState = (item: ProductData) => {
+  if (!imageLoadingStates.value[item.id]) {
+    imageLoadingStates.value[item.id] = useImage({ src: item.thumbnail });
+  }
+  return imageLoadingStates.value[item.id];
+};
 </script>
 <template>
   <!-- Current card -->
   <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
     <div
       v-for="item in props.items"
-      class="container bg-gray-700 bg-opacity-50 p-4 rounded min-w-full"
+      class="container bg-gray-700 bg-opacity-50 p-4 rounded min-w-full cursor-pointer hover:-translate-y-[2px] duration-200 hover:bg-opacity-60"
+      @click="router.push(`items/${item.id}`)"
     >
       <div :class="md ? 'flex items-center' : ''">
         <div class="md:flex md:justify-center">
+          <div
+            v-if="getImageLoadingState(item).isLoading"
+            class="rounded-full h-20 w-28 sm:h-24 sm:w-24 md:h-28 md:w-28 bg-gray-400 animate-pulse"
+          />
           <NuxtImg
+            v-else
             :src="item.thumbnail"
             width="100"
             height="100"
-            class="rounded-full h-28 w-28"
+            class="rounded-full h-20 w-28 sm:h-24 sm:w-24 md:h-28 md:w-28"
           />
         </div>
         <div class="pl-6 md:pl-0 md:mt-4 w-full">
@@ -44,12 +55,11 @@ onBeforeMount(() => {
                   fill="currentColor"
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
-                  stroke="#000000"
+                  stroke="#222220"
                   :class="[
-                    item.rating >= 4.5 ? 'text-orange-600' : '',
                     index <= Math.floor(item.rating)
-                      ? 'text-orange-600'
-                      : 'text-gray-400',
+                      ? 'text-red-700'
+                      : 'text-gray-500',
                   ]"
                   class="w-5 h-5 text-current"
                 >

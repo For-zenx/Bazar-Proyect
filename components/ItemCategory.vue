@@ -24,10 +24,8 @@ const displayCategories = computed(() => {
       return category;
     }
   });
-
   return result;
 });
-const slides = ref(Array.from<boolean>({ length: 12 }));
 </script>
 <template>
   <div class="py-4">

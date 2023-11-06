@@ -8,9 +8,9 @@ const router = useRouter();
 const show = ref(false);
 const x = ref(0);
 const searchQuery = ref(route.query.product || "");
-const target = ref(null);
+const targetButton = ref(null);
 
-const { isOutside } = useMouseInElement(target);
+const { isOutside } = useMouseInElement(targetButton);
 
 const handleSubmit = () => {
   if (searchQuery.value.length > 0) {
@@ -47,6 +47,7 @@ onMounted(() => {
       </p>
     </Transition>
     <input
+      ref="targetInput"
       type="text"
       placeholder="Search products, categories and more..."
       v-model="searchQuery"
@@ -60,7 +61,7 @@ onMounted(() => {
     />
     <div class="flex justify-center mt-6">
       <button
-        ref="target"
+        ref="targetButton"
         aria-label="Search button"
         class="search-button py-2 px-4 bg-blue-700 bg-opacity-90 rounded hover:-translate-y-[1px] hover:bg-opacity-100 transition-all duration-200 font-semibold"
         @mousemove="onMousemove"

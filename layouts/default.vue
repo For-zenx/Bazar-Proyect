@@ -1,3 +1,1 @@
-<template>
-  <slot />
-</template>
+<template><LayoutNavbar /><slot /></template>

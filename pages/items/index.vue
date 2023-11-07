@@ -12,19 +12,21 @@ const { data: products } = await useAsyncData("products", () =>
 let filteredProducts: ProductData[] = [];
 
 if (products.value) {
-  filteredProducts = products.value.products.filter((product) => {
-    const productTitle = product.title.toLowerCase();
-    const productCategory = product.category.toLowerCase();
-    const productBrand = product.brand.toLowerCase();
-    return (
-      productTitle.includes(`${productKeyword}`) ||
-      productCategory.includes(`${productKeyword}`) ||
-      productBrand.includes(`${productKeyword}`)
-    );
-  });
+  productKeyword.length === 0
+    ? (filteredProducts = [])
+    : (filteredProducts = products.value.products.filter((product) => {
+        const productTitle = product.title.toLowerCase();
+        const productCategory = product.category.toLowerCase();
+        const productBrand = product.brand.toLowerCase();
+        return (
+          productTitle.includes(`${productKeyword}`) ||
+          productCategory.includes(`${productKeyword}`) ||
+          productBrand.includes(`${productKeyword}`)
+        );
+      }));
 }
 useHead({
-  title: `Search for: ${productKeyword}`,
+  title: `Bazar Online - Search for: ${productKeyword}`,
   meta: [
     {
       hid: "page-items",
@@ -48,7 +50,34 @@ definePageMeta({
       }}</span
       >"
     </div>
+    <div class="flex justify-center">
+      <div
+        class="flex flex-col mt-24 text-xl font-semibold"
+        v-if="filteredProducts.length === 0"
+      >
+        <div class="flex justify-center">
+          <NuxtImg
+            src="/svg/mars.svg"
+            class="animate-spin"
+            height="200"
+            width="200"
+          />
+        </div>
+        No products found, try search other brands
+      </div>
+    </div>
     <ItemCategory :items="filteredProducts" />
     <ItemCard :items="filteredProducts" />
   </div>
 </template>
+<style scoped>
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 40s linear infinite;
+}
+</style>

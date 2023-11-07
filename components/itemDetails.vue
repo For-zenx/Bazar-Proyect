@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ProductData } from "types";
-import { useBreakpoints, breakpointsTailwind } from "@vueuse/core";
+import { useBreakpoints, breakpointsTailwind, useImage } from "@vueuse/core";
 const breakpoints = useBreakpoints(breakpointsTailwind);
 
 const md = breakpoints.greaterOrEqual("md");
@@ -15,6 +15,14 @@ const props = defineProps({
     required: true,
   },
 });
+const imageLoadingStates = ref<Record<string, ReturnType<typeof useImage>>>({});
+
+const getImageLoadingState = (item: ProductData) => {
+  if (!imageLoadingStates.value[item.id]) {
+    imageLoadingStates.value[item.id] = useImage({ src: item.thumbnail });
+  }
+  return imageLoadingStates.value[item.id];
+};
 </script>
 <template>
   <div v-for="item in items">
@@ -23,13 +31,22 @@ const props = defineProps({
         <div class="flex justify-center items-center gap-x-6 sm:mr-10 md:mr-24">
           <div class="flex flex-col">
             <div v-if="md" v-for="(image, index) in item.images" :key="image">
+              <div
+                v-if="getImageLoadingState(item).isLoading"
+                class="rounded-full w-16 h-16 bg-gray-400 animate-pulse"
+              />
               <NuxtImg
+                v-else
                 :src="image"
                 class="rounded-full w-16 h-16 mb-1 md:mb-2"
                 v-if="index < 3"
               />
             </div>
           </div>
+          <div
+            v-if="getImageLoadingState(item).isLoading"
+            class="rounded-full w-52 h-52 mb-4 bg-gray-400 animate-pulse"
+          />
           <NuxtImg :src="item.thumbnail" class="rounded-full w-52 h-52 mb-4" />
         </div>
         <div class="flex justify-center text-2xl font-semibold mt-4">

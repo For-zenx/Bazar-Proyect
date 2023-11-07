@@ -63,7 +63,7 @@ onMounted(() => {
       <button
         ref="targetButton"
         aria-label="Search button"
-        class="search-button py-2 px-4 bg-blue-700 bg-opacity-90 rounded hover:-translate-y-[1px] hover:bg-opacity-100 transition-all duration-200 font-semibold"
+        class="search-button py-2 px-4 bg-blue-700 bg-opacity-90 rounded hover:-translate-y-[1px] hover:bg-opacity-100 transition-all duration-100 font-semibold"
         @mousemove="onMousemove"
         :class="isOutside ? 'bg-blue-700' : ' shadow-xl'"
         :style="isOutside ? {} : { backgroundColor: `hsl(${x}, 50%, 30%)` }"

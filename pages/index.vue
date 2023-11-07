@@ -10,7 +10,7 @@ useHead({
   ],
 });
 definePageMeta({
-  layout: "default",
+  layout: false,
 });
 </script>
 <template>

@@ -10,7 +10,7 @@ const handleSubmit = () => {
     router.push({ path: "/items", query: { product: searchQuery.value } });
     setTimeout(() => {
       window.location.reload();
-    }, 10);
+    }, 100);
   }
 };
 </script>
@@ -19,7 +19,7 @@ const handleSubmit = () => {
     class="w-full bg-black bg-opacity-[0.83] h-16 px-16 shadow-md text-gray-300"
   >
     <div class="flex justify-center items-center pt-1.5">
-      <NuxtImg src="/img/logo.webp" height="50" />
+      <NuxtImg src="/img/logo.webp" height="50" width="50" />
       <div class="flex ml-6 mr-12 bg-black">
         <input
           type="text"

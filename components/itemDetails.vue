@@ -33,7 +33,7 @@ const getImageLoadingState = (item: ProductData) => {
             <div v-if="md" v-for="(image, index) in item.images" :key="image">
               <div
                 v-if="getImageLoadingState(item).isLoading"
-                class="rounded-full w-16 h-16 bg-gray-400 animate-pulse"
+                class="rounded-full w-16 h-16 mb-2 bg-gray-400 animate-pulse"
               />
               <NuxtImg
                 v-else
@@ -43,10 +43,6 @@ const getImageLoadingState = (item: ProductData) => {
               />
             </div>
           </div>
-          <div
-            v-if="getImageLoadingState(item).isLoading"
-            class="rounded-full w-52 h-52 mb-4 bg-gray-400 animate-pulse"
-          />
           <NuxtImg :src="item.thumbnail" class="rounded-full w-52 h-52 mb-4" />
         </div>
         <div class="flex justify-center text-2xl font-semibold mt-4">

@@ -68,6 +68,7 @@ definePageMeta({
     </div>
     <ItemCategory :items="filteredProducts" />
     <ItemCard :items="filteredProducts" />
+    <InterestSection />
   </div>
 </template>
 <style scoped>

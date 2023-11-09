@@ -30,5 +30,6 @@ definePageMeta({
 <template>
   <div class="px-2 md:px-6 lg:px-16 py-4">
     <ItemDetails :id="id" :items="allProducts" />
+    <InterestSection />
   </div>
 </template>
